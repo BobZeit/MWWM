@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\GItHub\\WPFNewApplication\\Coffee.CustomersApp\\Coffee.CustomersApp.csproj",
+      "projectUniqueName": "C:\\GItHub\\GitSecondUpdate\\MWWM\\Coffee.CustomersApp\\Coffee.CustomersApp.csproj",
       "projectName": "Coffee.CustomersApp",
-      "projectPath": "C:\\GItHub\\WPFNewApplication\\Coffee.CustomersApp\\Coffee.CustomersApp.csproj",
+      "projectPath": "C:\\GItHub\\GitSecondUpdate\\MWWM\\Coffee.CustomersApp\\Coffee.CustomersApp.csproj",
       "packagesPath": "C:\\Users\\Bob\\.nuget\\packages\\",
-      "outputPath": "C:\\GItHub\\WPFNewApplication\\Coffee.CustomersApp\\obj\\",
+      "outputPath": "C:\\GItHub\\GitSecondUpdate\\MWWM\\Coffee.CustomersApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
