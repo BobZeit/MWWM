@@ -1,4 +1,5 @@
 ﻿using Coffee.CustomersApp.Data;
+using Coffee.CustomersApp.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,12 +12,13 @@ namespace Coffee.CustomersApp.ViewModel
     public class CustomersViewModel
     {
         private readonly ICustomerDataProvider _provider;
+        public Customer? selectedCustomer { get; set; }
 
         public CustomersViewModel(ICustomerDataProvider provider)
         {
             _provider = provider ?? throw new ArgumentNullException(nameof(provider));
         }
-        public ObservableCollection<Model.Customer> Customers { get; set; } =
+        public ObservableCollection<Model.Customer> Customers { get; } =
             new ObservableCollection<Model.Customer>();
         public async Task LoadAsync()
         {
@@ -35,5 +37,15 @@ namespace Coffee.CustomersApp.ViewModel
             
         }
 
+        internal void Add()
+        {
+            var customer = new Customer()
+            {
+                FirstName = "New",
+                LastName = "Customer",
+            };
+            Customers.Add(customer);
+            selectedCustomer = customer;
+        }
     }
 }

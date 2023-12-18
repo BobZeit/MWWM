@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Coffee.CustomersApp.Model;
+using Coffee.CustomersApp.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,21 @@ namespace Coffee.CustomersApp.Controls
     /// </summary>
     public partial class CustomerListControl : UserControl
     {
+        private CustomersViewModel _viewModel;
+       
+
         public CustomerListControl()
         {
             InitializeComponent();
+            _viewModel = new ViewModel.CustomersViewModel(new Data.CustomerDataProvider());
+            DataContext = _viewModel;
+            Loaded += CustomerListControl_Loaded;
+
+        }
+
+        private async void CustomerListControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            await _viewModel.LoadAsync();
         }
 
         private void ButtonMove_Click(object sender, RoutedEventArgs e)
@@ -36,6 +50,11 @@ namespace Coffee.CustomersApp.Controls
                 Grid.SetColumn(GridOne, 0);
             }
 
+        }
+
+        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+        {
+            _viewModel.Add();
         }
     }
 
