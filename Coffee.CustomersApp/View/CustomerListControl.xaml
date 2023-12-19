@@ -12,7 +12,7 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="auto"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Grid Background="#777" x:Name="GridOne">
+        <Grid Background="#777" Grid.Column="{Binding Path= NavigationColumn}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
@@ -38,17 +38,17 @@
             </StackPanel>
             <ListView Margin="10 0 10 10" Grid.Row="1"
                       ItemsSource="{Binding Path=Customers}"
-                      SelectedItem="{Binding Path=selectedCustomer, Mode=TwoWay}"
+                      SelectedItem="{Binding Path=SelectedCustomer, Mode=TwoWay}"
                       DisplayMemberPath="FirstName">
             </ListView>
         </Grid>
         <Grid Grid.Column="1" Background="White">
             <StackPanel Margin="10" Orientation="Vertical">
                 <Label>First Name:</Label>
-                <TextBox Text="{Binding Path=selectedCustomer.FirstName,
+                <TextBox Text="{Binding Path=SelectedCustomer.FirstName,
                     Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 <Label>Last Name:</Label>
-                <TextBox Text="{Binding Path=selectedCustomer.LastName, Mode=TwoWay,
+                <TextBox Text="{Binding Path=SelectedCustomer.LastName, Mode=TwoWay,
                     UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 <CheckBox Margin="0 10 0 0" Content="Is developer"
                           IsChecked="{Binding Path=selectedCustomer.IsDeveloper,

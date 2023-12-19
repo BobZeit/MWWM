@@ -3,16 +3,31 @@ using Coffee.CustomersApp.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Coffee.CustomersApp.ViewModel
 {
-    public class CustomersViewModel
+    public class CustomersViewModel : ViewModelBase
     {
         private readonly ICustomerDataProvider _provider;
-        public Customer? selectedCustomer { get; set; }
+        private Customer? _selectedCustomer;
+        private int _navigationColumn;
+
+        public Customer? SelectedCustomer
+        {
+            get { return _selectedCustomer; }
+            set
+            {
+                if (_selectedCustomer != value)
+                {
+                    _selectedCustomer = value;
+                    RaisePropertyChanged(nameof(SelectedCustomer));
+                }
+            }
+        }
 
         public CustomersViewModel(ICustomerDataProvider provider)
         {
@@ -20,6 +35,20 @@ namespace Coffee.CustomersApp.ViewModel
         }
         public ObservableCollection<Model.Customer> Customers { get; } =
             new ObservableCollection<Model.Customer>();
+        public int NavigationColumn
+        {
+            get
+            {
+                return _navigationColumn;
+            }
+
+            private set
+            {
+                _navigationColumn = value;
+                RaisePropertyChanged(nameof(NavigationColumn));
+            }
+        }
+
         public async Task LoadAsync()
         {
             if (Customers.Any())
@@ -27,17 +56,17 @@ namespace Coffee.CustomersApp.ViewModel
                 return;
             }
             var customers = await _provider.GetCustomerAsync();
-            if(customers != null)
+            if (customers != null)
             {
                 foreach (var customer in customers)
                 {
                     Customers.Add(customer);
                 }
             }
-            
+
         }
 
-        internal void Add()
+        internal void AddCustomer()
         {
             var customer = new Customer()
             {
@@ -45,7 +74,18 @@ namespace Coffee.CustomersApp.ViewModel
                 LastName = "Customer",
             };
             Customers.Add(customer);
-            selectedCustomer = customer;
+            SelectedCustomer = customer;
         }
+
+        internal void MoveNavigation()
+        {
+            NavigationColumn = NavigationColumn == 0 ? 2 : 0;
+        }
+
+        //    pirvate void RaisePropertyChanged([CallerMemberName] string? propertyName)
+        //    {
+        //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        //    }
+
     }
 }

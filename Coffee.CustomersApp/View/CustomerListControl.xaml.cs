@@ -41,20 +41,21 @@ namespace Coffee.CustomersApp.Controls
 
         private void ButtonMove_Click(object sender, RoutedEventArgs e)
         {
-            if(Grid.GetColumn(GridOne) == 0)
-            {
-                Grid.SetColumn(GridOne, 2);
-            }
-            else
-            {
-                Grid.SetColumn(GridOne, 0);
-            }
+            _viewModel.MoveNavigation();
+            //if(Grid.GetColumn(GridOne) == 0)
+            //{
+            //    Grid.SetColumn(GridOne, 2);
+            //}
+            //else
+            //{
+            //    Grid.SetColumn(GridOne, 0);
+            //}
 
         }
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-            _viewModel.Add();
+            _viewModel.AddCustomer();
         }
     }
 
