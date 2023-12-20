@@ -13,10 +13,10 @@ namespace Coffee.CustomersApp.ViewModel
     public class CustomersViewModel : ViewModelBase
     {
         private readonly ICustomerDataProvider _provider;
-        private Customer? _selectedCustomer;
+        private CustomerViewModel? _selectedCustomer;
         private int _navigationColumn;
 
-        public Customer? SelectedCustomer
+        public CustomerViewModel? SelectedCustomer
         {
             get { return _selectedCustomer; }
             set
@@ -33,8 +33,8 @@ namespace Coffee.CustomersApp.ViewModel
         {
             _provider = provider ?? throw new ArgumentNullException(nameof(provider));
         }
-        public ObservableCollection<Model.Customer> Customers { get; } =
-            new ObservableCollection<Model.Customer>();
+        public ObservableCollection<CustomerViewModel> Customers { get; } =
+            new ObservableCollection<CustomerViewModel>();
         public int NavigationColumn
         {
             get
@@ -44,8 +44,11 @@ namespace Coffee.CustomersApp.ViewModel
 
             private set
             {
-                _navigationColumn = value;
-                RaisePropertyChanged(nameof(NavigationColumn));
+                if (_navigationColumn != value)
+                {
+                    _navigationColumn = value;
+                    RaisePropertyChanged(nameof(NavigationColumn));
+                }
             }
         }
 
@@ -60,7 +63,8 @@ namespace Coffee.CustomersApp.ViewModel
             {
                 foreach (var customer in customers)
                 {
-                    Customers.Add(customer);
+                    var customerViewModel = new CustomerViewModel(customer);
+                    Customers.Add(customerViewModel);
                 }
             }
 
@@ -73,8 +77,9 @@ namespace Coffee.CustomersApp.ViewModel
                 FirstName = "New",
                 LastName = "Customer",
             };
-            Customers.Add(customer);
-            SelectedCustomer = customer;
+            var customerViewModel = new CustomerViewModel(customer);
+            Customers.Add(customerViewModel);
+            SelectedCustomer = customerViewModel;
         }
 
         internal void MoveNavigation()
